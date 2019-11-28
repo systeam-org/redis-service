@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis-deployment
+  name: redis-service-deployment
   labels:
-    app: redis
+    app: redis-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: redis
+      app: redis-service
   template:
     metadata:
       labels:
-        app: redis
+        app: redis-service
     spec:
       containers:
-      - name: redis
-        image: systeamorg/redis
+      - name: redis-service
+        image: systeamorg/redis-service
         imagePullPolicy: Never
         ports:
         - containerPort: 6379
@@ -24,9 +24,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis
+  name: redis-service
   labels:
-    app: redis
+    app: redis-service
 spec:
   ports:
   - port: 6379
@@ -36,4 +36,4 @@ spec:
     name: tcp
   type: NodePort
   selector:
-    app: redis
+    app: redis-service
